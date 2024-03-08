@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const { roles } = require("../config/roles");
+const { paginate, toJSON } = require("./plugins");
+
+/**
+ * @type {mongoose.SchemaDefinitionProperty}
+ * */
 
 const userSchema = mongoose.Schema(
   {
@@ -43,11 +48,20 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    manager: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+      default: null,
+    },
   },
   {
     timestamps: true,
   }
 );
+
+userSchema.plugin(toJSON);
+userSchema.plugin(paginate);
+
 
 /**
  * Check if email is taken
