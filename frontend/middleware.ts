@@ -1,4 +1,4 @@
-import type { NextRequest } from "next/server";
+import { NextRequest, NextFetchEvent, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get("toK")?.value;
@@ -6,6 +6,7 @@ export function middleware(request: NextRequest) {
   if (currentUser && request.nextUrl.pathname.startsWith("/login")) {
     return Response.redirect(new URL("/dashboard", request.url));
   }
+
 
   if (!currentUser && !request.nextUrl.pathname.startsWith("/login")) {
     return Response.redirect(new URL("/login", request.url));
