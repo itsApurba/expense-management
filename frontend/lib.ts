@@ -6,7 +6,7 @@ export async function login(formData: any) {
   // Verify credentials && get the user
 
   console.log(formData)
-  console.log(formData.get("password"))
+  console.log(formData.get("email"))
 
 //   const user = { email: formData.get("email"), password: formData.get("password") };
 

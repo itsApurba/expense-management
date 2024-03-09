@@ -16,15 +16,15 @@ const Login = async () => {
         <form
           action={async (formData) => {
             "use server";
-            console.log(formData);
-            // await login(formData);
-            // redirect("/");
+            await login(formData);
+            redirect("/");
           }}
         >
-          <label htmlFor='email'>Email</label>
-          <Input id='email' type='email' placeholder='Enter email' required />
           <div className='grid w-full items-center gap-4'>
-            <div className='flex flex-col space-y-1.5'></div>
+            <div className='flex flex-col space-y-1.5'>
+              <label htmlFor='email'>Email</label>
+              <Input id='email' type='email' placeholder='Enter email' required />
+            </div>
             <div className='flex flex-col space-y-1.5'>
               <label htmlFor='password'>Password</label>
               <Input id='password' type='password' placeholder='Enter password' required min={8} />
