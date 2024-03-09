@@ -29,7 +29,7 @@ const expenseSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "approved", "rejected"],
+      enum: ["APPROVED", "REJECTED", "PENDING"],
       default: "pending",
     },
     approvedBy: {

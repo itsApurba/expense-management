@@ -11,6 +11,8 @@ router
     res.send("Expense route");
   });
 
+router.route("/approve").patch(validate(expenseValidation.approveStatus), expenseController.approveStatus);
+
 module.exports = router;
 
 /**
