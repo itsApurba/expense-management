@@ -16,6 +16,7 @@ const Login = async () => {
         <form
           action={async (formData) => {
             "use server";
+            console.log(formData.get)
             await login(formData);
             redirect("/");
           }}
