@@ -13,8 +13,8 @@ const expenseValidation = {
     approveStatus: {
         body: Joi.object().keys({
             userId: Joi.string().required().custom(objectId),
-            manager: Joi.string().custom(objectId),
             expenseId: Joi.string().required().custom(objectId),
+            managerId: Joi.string().required().custom(objectId),
             status: Joi.string().valid('APPROVED', 'REJECTED', 'PENDING') 
         })
     }

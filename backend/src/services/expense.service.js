@@ -11,27 +11,34 @@ const createExpense = async (expenseBody) => {
   return Expense.create(expenseBody);
 };
 
-const approveStatus = async (body) => {
-  const expense = await Expense.findById(body.expenseId);
+/**
+ * 
+ * @param {object} expenseBody 
+ * @returns {Promise<Expense>}
+ */
+
+const approveStatus = async ({ userId, expenseId, managerId, status }) => {
+  const expense = await Expense.findById(expenseId);
   if (!expense) {
     throw new ApiError(httpStatus.NOT_FOUND, "Expense not found");
   }
-  const manager = await User.findById(body.manager);
-  if (!manager) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Manager not found");
+
+  if(expense.userId.toString() !== userId.toString()) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "Unauthorized");
   }
-  const user = await User.findById(body.userId);
+
+  const user = await User.findById(userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
 
   // Only the manager can update the approval status
-  if (user.manager.toString() !== manager._id.toString()) {
+  if (user.manager.toString() !== managerId.toString()) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Unauthorized");
   }
 
-  expense.status = body.status;
-  expense.approvedBy = manager._id;
+  expense.status = status;
+  expense.approvedBy = managerId;
   return expense.save();
 };
 

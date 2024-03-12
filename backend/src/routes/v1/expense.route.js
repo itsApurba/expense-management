@@ -12,7 +12,12 @@ router
     res.send("Expense route");
   });
 
-router.route("/approve").patch(validate(expenseValidation.approveStatus), expenseController.approveStatus);
+router
+  .route("/approve")
+  .patch(validate(expenseValidation.approveStatus), expenseController.approveStatus)
+  .get((req, res) => {
+    res.send("Expense routes");
+  });
 
 module.exports = router;
 
@@ -22,7 +27,6 @@ module.exports = router;
  *   name: Expenses
  *   description: Expense management and retrieval
  */
-
 
 /**
  * @swagger
