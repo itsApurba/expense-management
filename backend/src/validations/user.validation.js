@@ -43,6 +43,10 @@ const deleteUser = {
   params: Joi.object().keys({
     userId: Joi.string().custom(objectId),
   }),
+  body: Joi.object().keys({
+    userId: Joi.string().custom(objectId).optional(),
+    managerId: Joi.string().custom(objectId).optional(),
+  }),
 };
 
 module.exports = {

@@ -10,9 +10,9 @@ router
   .post(auth("manageUsers"), validate(userValidation.createUser), userController.createUser)
   .get(validate(userValidation.getUsers), userController.getUsers);
 
-router.route("/:userid").get((req, res) => {
+router.route("/:userId").get((req, res) => {
   res.send("User route");
-});
+}).delete(validate(userValidation.deleteUser), userController.deleteUser)
 
 module.exports = router;
 
