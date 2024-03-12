@@ -2,11 +2,12 @@ const express = require("express");
 const validate = require("../../middlewares/validate");
 const expenseValidation = require("../../validations/expense.validation");
 const expenseController = require("../../controllers/expense.controller");
+const auth = require("../../middlewares/auth");
 const router = express.Router();
 
 router
   .route("/")
-  .post(validate(expenseValidation.createExpense), expenseController.createExpense)
+  .post(auth("createExpense"), validate(expenseValidation.createExpense), expenseController.createExpense)
   .get((req, res) => {
     res.send("Expense route");
   });
@@ -48,10 +49,6 @@ module.exports = router;
  *                 type: number
  *                 required: true
  *                 description: amount of the expense
- *               date:
- *                 type: date
- *                 required: true
- *                 description: date of the expense
  *               description:
  *                 type: string
  *                 required: true
@@ -60,7 +57,6 @@ module.exports = router;
  *               userId: 65eb6149f13fc7046c9faf59
  *               name: Expense1
  *               amount: 100
- *               date: 2022-01-01
  *               description: description of the expense
  *     responses:
  *       "201":

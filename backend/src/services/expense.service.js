@@ -12,28 +12,26 @@ const createExpense = async (expenseBody) => {
 };
 
 const approveStatus = async (body) => {
-  const expense = await Expense.findOne({ _id: body.expenseId });
+  const expense = await Expense.findById(body.expenseId);
   if (!expense) {
     throw new ApiError(httpStatus.NOT_FOUND, "Expense not found");
   }
-  const manager = await User.findOne({ _id: body.manager });
+  const manager = await User.findById(body.manager);
   if (!manager) {
     throw new ApiError(httpStatus.NOT_FOUND, "Manager not found");
   }
-  expense.approvedBy = manager;
-  // Only the manager can update the approval status
-
-  const user = await User.findOne({ _id: body.userId });
-
+  const user = await User.findById(body.userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
 
-  if (user.manager.includes(manager._id)) {
-    expense.status = body.status;
-  } else {
+  // Only the manager can update the approval status
+  if (user.manager.toString() !== manager._id.toString()) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Unauthorized");
   }
+
+  expense.status = body.status;
+  expense.approvedBy = manager._id;
   return expense.save();
 };
 

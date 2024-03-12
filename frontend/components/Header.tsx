@@ -14,15 +14,20 @@ const Header = () => {
           </div>
         </Link>
         <div>
-          <Button
-            onClick={async () => {
-              console.log("logging out");
-              logout();
-            }}
-            variant={"destructive"}
-          >
-            Logout
-          </Button>
+          <div className="flex gap-4">
+            <Button variant={"link"} asChild>
+              <Link href='/users'>Users</Link>
+            </Button>
+            <Button
+              onClick={async () => {
+                console.log("logging out");
+                logout();
+              }}
+              variant={"destructive"}
+            >
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
     </div>

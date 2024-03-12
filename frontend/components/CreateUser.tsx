@@ -49,6 +49,8 @@ const CreateUser = () => {
             </div>
           </div>
           <DialogFooter>
+            {state.error && <p className='text-red-500'>{state.error}</p>}
+            {state.message && <p className='text-green-500'>{state.message}</p>}
             <SubmitButton />
           </DialogFooter>
         </form>
